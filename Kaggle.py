@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import os
 import random
 import imutils
@@ -13,10 +7,6 @@ import matplotlib.pyplot as plt
 from keras.utils import np_utils
 from keras.preprocessing import image
 from PIL import Image, ImageDraw
-
-
-# In[6]:
-
 
 path = '/media/vlados/FreeSpace/Kaggle/train_simple' #csv files path
 
@@ -46,6 +36,7 @@ def dataset_maker(path, train_img, test_img):
     image_in_test_dataset = test_img
     image_in_class = train_img + test_img
     
+    # All imagies in train and test classes
     num_test_samples = image_in_test_dataset * len(classes_name)
     num_train_samples = image_in_class * len(classes_name)
     
@@ -57,13 +48,15 @@ def dataset_maker(path, train_img, test_img):
     
     all_data_in_class = pd.read_csv(path + '/' + classes_name[0])
     all_data_in_class = all_data_in_class.values
-        
+ 
+    # Reading each class
     for i in range(0, len(classes_name) - 1):
         all_data_in_class = pd.read_csv(path + '/' + classes_name[i])
         all_data_in_class = all_data_in_class.values
         
         iterator = i * image_in_class
 
+        # Reading the first 6000 img. 5000 goes in train dataset, 1000 goes in test dataset 
         for img in range(0, image_in_class - 1):
             
             if image_in_class < train_img:
@@ -107,7 +100,7 @@ np.save('/media/vlados/FreeSpace/Kaggle/dataset/y_test.npy', y_test)
 
 # In[15]:
 
-
+# Cleaning the memory
 y_test = None
 
 
